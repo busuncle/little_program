@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .idt {
+        text-indent: 50px;
+    }
+    table {
+        border-collapse: collapse;
+    }
+    tr, th, td {
+        text-align: center; border: 1px solid #000000; padding: 5px 10px;
+    }
+
+    .float_win {
+        position: absolute; width: 260px; height: 80px; 
+        /*left: 50px; top: 50px; */
+        display:none;
+        background-color: #FFFFFF; border: 1px solid #CCCCCC;
+    }
+    .float_win a { 
+        text-decoration: none; line-height: 16px; vertical-align: center;
+    }
+    .float_win .content {
+        margin: 25px 5px 5px 5px;
+    }
+    .float_win .close {
+        width: 16px; height: 16px; top: 5px; right: 5px; background-color: #FF0000; position: absolute; text-align:center; 
+    }
+    .flt_recommend {
+        position: absolute; width: 720px; height: 163px;
+        left: 50px; top: 70px;
+        background-color: #FFFFFF; border: 1px solid #CCCCCC;
+        /*display:none;*/
+    }
+    .flt_recommend .rec_title {
+        line-height: 33px; height: 33px; color: #333333; background-color: #ECECEC;
+    }
+    .flt_recommend .rec_title span {
+        margin-left: 5px; margin-right: 5px;
+    }
+    .flt_recommend li {
+        list-style: none outside none; float: left; width: 220px; height: 110px;
+        margin-top: 10px; margin-left: 10px;
+    }
+    .flt_recommend img {
+        width: 110px; height: 80px;
+    }
+    .flt_recommend .game_img {
+        float: left;
+    }
+    .flt_recommend p.clr_flt {
+        clear:both;
+    }
+    .flt_recommend .game_info {
+        width: 100px; height: 80px; float: left; margin-left: 5px;
+    }
+    .flt_recommend .enter_game {
+        margin-top: 5px; margin-left: 30px; width: 70px;
+    }
+    .flt_recommend h5 {
+        text-align: center;
+    }
+    .flt_recommend .game_info p {
+        padding-left: 18px; height: 15px; margin: 5px 5px; font-size: 12px;
+    }
+    .flt_recommend p.game_type {
+        background: url("icon.png") no-repeat scroll 0 0 transparent; 
+    }
+    .flt_recommend p.game_theme {
+        background: url("icon.png") no-repeat scroll 0 -15px transparent; width: 70px;
+    }
+    .flt_recommend p.game_hot {
+        background: url("icon.png") no-repeat scroll 0 -47px transparent; width: 70px;
+    }
+</style>
+<script charset="gb2312" src="http://res.nie.netease.com/comm/js/jquery(mixNIE).last.js"></script>
+<script language="javascript">
+    $(document).ready(function(){
+        $("td").click(function(){
+            //$("#recommend").css({"left": 50, "top": 70});
+            //$("#recommend").show();
+        });
+
+        /*
+        $("td").click((function(){
+            var show_cache = {};
+            return function(){
+                var p = $(this).position();
+                var win = $("#flt_win");
+                win.css({"left": p.left + $(this).width() / 2, "top": p.top - win.height()});
+                var c = $(this).html();
+                if(typeof(show_cache[c]) == "undefined"){
+                    show_cache[c] = 1;
+                    win.find("div.content > p > span").html(c);
+                    win.fadeIn();
+                } else {
+                    win.find("div.content > p > span").html(c + " in cache");
+                    win.show();
+                }
+            }
+        })());
+        */
+    });
+</script>
+</head>
+<body>
+<p class="idt">this is an <br />indent paragraph</p>
+<p class="idt">this is an indent paragraph</p>
+<p class="idt">this is an indent paragraph</p>
+<p class="idt">this is an indent paragraph</p>
+<table>
+    <tr>
+        <th>first</th>
+        <th>second</th>
+        <th>third</th>
+    </tr>
+    <tr>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+    </tr>
+    <tr>
+        <td>d</td>
+        <td>e</td>
+        <td>f</td>
+    </tr>
+    <tr>
+        <td>g</td>
+        <td>h</td>
+        <td>i</td>
+    </tr>
+    <tr>
+        <td>j</td>
+        <td>k</td>
+        <td>l</td>
+    </tr>
+
+</body>
+<div id="flt_win" class="float_win">
+    <div class="close"><a href="#nogo" onclick="$('#flt_win').fadeOut()">&times;</a></div>
+    <div class="content">
+        <p>this is float: <span></span></p>
+    </div>
+</div>
+<div id="recommend" class="flt_recommend">
+    <div class="rec_title"><span>喜欢<span>***</span>的玩家也喜欢这些游戏</span></div>
+    <ul>
+        <li>
+            <div class="game_img"><a href="#nogo" ><img src="http://cottage.netease.com:80/union/wan/product/big_4234" /></a></div>
+            <div class="game_info">
+                <h5>龙将</h5>
+                <p class="game_type">角色扮演</p>
+                <p class="game_theme">武侠</p>
+                <p class="game_hot">12345678</p>
+            </div>
+            <p class="clr_flt"></p>
+            <div class="enter_game">
+                <a href="#nogo">进入游戏 </a>
+            </div>
+        </li>
+        <li>
+            <div class="game_img"><a href="#nogo" ><img src="http://cottage.netease.com:80/union/wan/product/big_4234" /></a></div>
+            <div class="game_info">
+                <h5>龙将</h5>
+                <p class="game_type">角色扮演</p>
+                <p class="game_theme">武侠</p>
+                <p class="game_hot">12345678</p>
+            </div>
+            <p class="clr_flt"></p>
+            <div class="enter_game">
+                <a href="#nogo">进入游戏 </a>
+            </div>
+        </li>
+        <li>
+            <div class="game_img"><a href="#nogo" ><img src="http://cottage.netease.com:80/union/wan/product/big_4234" /></a></div>
+            <div class="game_info">
+                <h5>龙将</h5>
+                <p class="game_type">角色扮演</p>
+                <p class="game_theme">武侠</p>
+                <p class="game_hot">12345678</p>
+            </div>
+            <p class="clr_flt"></p>
+            <div class="enter_game">
+                <a href="#nogo">进入游戏 </a>
+            </div>
+        </li>
+    </ul>
+</div>
+</html>
