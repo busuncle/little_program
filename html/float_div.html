@@ -32,7 +32,7 @@
         width: 16px; height: 16px; top: 5px; right: 5px; background-color: #FF0000; position: absolute; text-align:center; 
     }
     .flt_recommend {
-        position: absolute; width: 720px; height: 163px;
+        position: absolute; width: 720px; height: 160px;
         left: 50px; top: 70px;
         background-color: #FFFFFF; border: 1px solid #CCCCCC;
         /*display:none;*/
@@ -62,20 +62,30 @@
     .flt_recommend .enter_game {
         margin-top: 5px; margin-left: 30px; width: 70px;
     }
+    .flt_recommend .enter_game a {
+        text-align: center; text-decoration: none; color: #FFFFFF; background-color: #FFB300; padding: 2px 2px;
+    }
     .flt_recommend h5 {
         text-align: center;
+    }
+    .flt_recommend h5 a {
+        text-decoration: none; color: #000000;
+    }
+    .flt_recommend h5 a:hover {
+        color: #F25E22;
+        text-decoration: underline;
     }
     .flt_recommend .game_info p {
         padding-left: 18px; height: 15px; margin: 5px 5px; font-size: 12px;
     }
     .flt_recommend p.game_type {
-        background: url("icon.png") no-repeat scroll 0 0 transparent; 
+        background: url("images/icon.png") no-repeat scroll 0 0 transparent; 
     }
     .flt_recommend p.game_theme {
-        background: url("icon.png") no-repeat scroll 0 -15px transparent; width: 70px;
+        background: url("images/icon.png") no-repeat scroll 0 -15px transparent; width: 70px;
     }
     .flt_recommend p.game_hot {
-        background: url("icon.png") no-repeat scroll 0 -47px transparent; width: 70px;
+        background: url("images/icon.png") no-repeat scroll 0 -47px transparent; width: 70px;
     }
 </style>
 <script charset="gb2312" src="http://res.nie.netease.com/comm/js/jquery(mixNIE).last.js"></script>
@@ -151,9 +161,9 @@
     <div class="rec_title"><span>喜欢<span>***</span>的玩家也喜欢这些游戏</span></div>
     <ul>
         <li>
-            <div class="game_img"><a href="#nogo" ><img src="http://cottage.netease.com:80/union/wan/product/big_4234" /></a></div>
+            <div class="game_img"><a href="#nogo" ><img src="images/big_4234.jpg" /></a></div>
             <div class="game_info">
-                <h5>龙将</h5>
+                <h5><a href="#nogo">龙将</a></h5>
                 <p class="game_type">角色扮演</p>
                 <p class="game_theme">武侠</p>
                 <p class="game_hot">12345678</p>
@@ -164,9 +174,9 @@
             </div>
         </li>
         <li>
-            <div class="game_img"><a href="#nogo" ><img src="http://cottage.netease.com:80/union/wan/product/big_4234" /></a></div>
+            <div class="game_img"><a href="#nogo" ><img src="images/big_4234.jpg" /></a></div>
             <div class="game_info">
-                <h5>龙将</h5>
+                <h5><a href="#nogo">龙将</a></h5>
                 <p class="game_type">角色扮演</p>
                 <p class="game_theme">武侠</p>
                 <p class="game_hot">12345678</p>
@@ -177,9 +187,9 @@
             </div>
         </li>
         <li>
-            <div class="game_img"><a href="#nogo" ><img src="http://cottage.netease.com:80/union/wan/product/big_4234" /></a></div>
+            <div class="game_img"><a href="#nogo" ><img src="images/big_4234.jpg" /></a></div>
             <div class="game_info">
-                <h5>龙将</h5>
+                <h5><a href="#nogo">龙将</a></h5>
                 <p class="game_type">角色扮演</p>
                 <p class="game_theme">武侠</p>
                 <p class="game_hot">12345678</p>
