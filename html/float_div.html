@@ -33,9 +33,9 @@
     }
     .flt_recommend {
         position: absolute; width: 720px; height: 160px;
-        left: 50px; top: 70px;
+        /*left: 50px; top: 70px;*/
         background-color: #FFFFFF; border: 1px solid #CCCCCC;
-        /*display:none;*/
+        display:none;
     }
     .flt_recommend .rec_title {
         line-height: 33px; height: 33px; color: #333333; background-color: #ECECEC;
@@ -91,16 +91,38 @@
 <script charset="gb2312" src="http://res.nie.netease.com/comm/js/jquery(mixNIE).last.js"></script>
 <script language="javascript">
     $(document).ready(function(){
-        $("td").click(function(){
-            //$("#recommend").css({"left": 50, "top": 70});
-            //$("#recommend").show();
+        var mouse_loc = [];
+        $(this).mousemove(function(e){
+            mouse_loc.push({x: e.clientX, y: e.clientY});
+            if(mouse_loc.length > 3){
+                mouse_loc.shift();
+            }
+        });
+        $("#recommend").mouseleave(function(){
+            $(this).hide();
+        });
+        $("td").mouseenter(function(){
+            var p = $(this).offset();
+            var w = $(this).width();
+            $("#recommend").css({"left": p.left + w / 2, "top": p.top - $("#recommend").height()});
+            $("#recommend").find("div.rec_title > span > span").html($(this).html());
+            $("#recommend").show();
+        });
+        $("td").mouseout(function(e){
+            var pre = mouse_loc[0];
+            var cur = mouse_loc[mouse_loc.length - 1];
+            var dx = cur.x - pre.x;
+            var dy = cur.y - pre.y;
+            if(!(dx > 0 && dy < 0)){
+                $("#recommend").hide();
+            }
         });
 
         /*
         $("td").click((function(){
             var show_cache = {};
             return function(){
-                var p = $(this).position();
+                var p = $(this).offset();
                 var win = $("#flt_win");
                 win.css({"left": p.left + $(this).width() / 2, "top": p.top - win.height()});
                 var c = $(this).html();
