@@ -31,16 +31,19 @@ def viterbi(obs, stat, start_p, trans_m, emit_m):
         optimal_prob_m[0][s] = start_p[s] * emit_m[s][obs[0]]
         optimal_path_m[0][s] = s
 
-    # using dynamic programming method the fill the two matrix
+    # using dynamic programming method to fill the two matrix in time sequence t1, t2, ..., tn
     for t in xrange(1, len(obs)):
         optimal_prob_m.append({})
         optimal_path_m.append({})
 
         for s in stat:
             optimal_prob, optimal_stat = max([(optimal_prob_m[t - 1][si] * trans_m[si][s] * emit_m[s][obs[t]], si) for si in stat])
+            # optimal probability for state s in time t
             optimal_prob_m[t][s] = optimal_prob
+            # backward pointer for optimal_stat
             optimal_path_m[t][s] = optimal_stat
 
+    # output a path containing optimal sequence
     path = [max(optimal_prob_m[-1].iteritems(), key=lambda x:x[1])[0]]
     for i in xrange(len(obs) - 1, 0, -1):
         for s, ps in optimal_path_m[i].iteritems():
