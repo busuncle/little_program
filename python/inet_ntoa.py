@@ -1,6 +1,8 @@
 import socket
 import struct
 
+
+
 def inet_ntoa(n):
     """
     complicated in using inet_ntoa in python for some consideration
@@ -10,12 +12,11 @@ def inet_ntoa(n):
     assert 0 <= n < 2**32 - 1
     res = []
     mask = 2**8 - 1
-    for i in xrange(4):
-        t = n & mask
-        res.insert(0, t)
+    while len(res) < 4:
+        res.append(n & mask)
         n >>= 8
 
-    return ".".join(map(str, res))
+    return ".".join(map(str, reversed(res)))
 
 
 if __name__ == "__main__":
