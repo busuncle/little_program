@@ -45,19 +45,13 @@ local function connect_by_1(p1, p2, map)
 end 
 
 local function connect_by_2(p1, p2, map)
-    -- try 2 dimensions from p1 to p2
-    local step = (p2.row - p1.row) / math.abs(p2.row - p1.row)
-    for i = p1.row+step, p2.row, step do
-        if connect_by_1({row=i,column=p1.column}, p2, map) then
-            return true
-        end
+    local p = {row=p1.row, column=p2.column}
+    if (map[p.row][p.column] == nil) and connect_by_1(p, p1, map) and connect_by_1(p, p2, map) then
+        return true
     end
-
-    step = (p2.column - p1.column) / math.abs(p2.column - p1.column)
-    for i = p1.column+step, p2.column, step do
-        if connect_by_1({row=p1.row,column=i}, p2, map) then
-            return true
-        end
+    p = {row=p2.row, column=p1.column}
+    if (map[p.row][p.column] == nil) and connect_by_1(p, p1, map) and connect_by_1(p, p2, map) then
+        return true
     end
     return false
 end
