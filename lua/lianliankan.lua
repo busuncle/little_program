@@ -54,13 +54,27 @@ end
 
 local function connect_by_2(p1, p2, map)
     local p = {row=p1.row, column=p2.column}
-    if (map[p.row][p.column] == nil) and connect_by_1(p, p1, map) and connect_by_1(p, p2, map) then
-        return true
+    if map[p.row] == nil then
+        if connect_by_1(p, p2, map) then
+            return true
+        end
+    else
+        if (map[p.row][p.column] == nil) and connect_by_1(p, p1, map) and connect_by_1(p, p2, map) then
+            return true
+        end
     end
+
     p = {row=p2.row, column=p1.column}
-    if (map[p.row][p.column] == nil) and connect_by_1(p, p1, map) and connect_by_1(p, p2, map) then
-        return true
+    if map[p.row] == nil then
+        if connect_by_1(p, p1, map) then
+            return true
+        end
+    else
+        if (map[p.row][p.column] == nil) and connect_by_1(p, p1, map) and connect_by_1(p, p2, map) then
+            return true
+        end
     end
+
     return false
 end
 
@@ -71,7 +85,7 @@ local function connect_by_3(p1, p2, map)
 
     -- try 4 directions
     for i = p1.row-1, 0, -1 do
-        if (map[i][p1.column] == nil) then
+        if (map[i] == nil) or (map[i][p1.column] == nil) then
             if connect_by_2({row=i,column=p1.column}, p2, map) then
                 return true
             end
@@ -81,7 +95,7 @@ local function connect_by_3(p1, p2, map)
     end
 
     for i = p1.row+1, n_row+1 do
-        if (map[i][p1.column] == nil) then
+        if (map[i] == nil) or (map[i][p1.column] == nil) then
             if connect_by_2({row=i,column=p1.column}, p2, map) then
                 return true
             end
@@ -91,7 +105,7 @@ local function connect_by_3(p1, p2, map)
     end
 
     for i = p1.column-1, 0, -1 do
-        if (map[p1.row][i] == nil) then
+        if (map[i] == nil) or (map[p1.row][i] == nil) then
             if connect_by_2({row=p1.row,column=i}, p2, map) then
                 return true
             end
@@ -101,7 +115,7 @@ local function connect_by_3(p1, p2, map)
     end
 
     for i = p1.column+1, n_colunm+1 do
-        if (map[p1.row][i] == nil) then
+        if (map[i] == nil) or (map[p1.row][i] == nil) then
             if connect_by_2({row=p1.row,column=i}, p2, map) then
                 return true
             end
@@ -124,7 +138,7 @@ end
 
 
 print("---------begin-------------")
-print(connect_by_1({row=1,column=2}, {row=2,column=1}, test_maps[1]) == true) --false
+print(connect_by_1({row=1,column=2}, {row=2,column=1}, test_maps[1]) == false) --false
 print(connect_by_1({row=1,column=3}, {row=2,column=3}, test_maps[1]) == true) --true
 print(connect_by_1({row=3,column=1}, {row=3,column=4}, test_maps[1]) == false) --false
 print(connect_by_1({row=1,column=2}, {row=2,column=1}, test_maps[2]) == false) --false
@@ -136,5 +150,7 @@ print(connect_by_2({row=2,column=1}, {row=4,column=1}, test_maps[4]) == false) -
 
 print(connect_by_3({row=1,column=2}, {row=3,column=1}, test_maps[5]) == true)
 print(connect_by_3({row=2,column=1}, {row=4,column=1}, test_maps[5]) == true)
-print(connect_by_3({row=1,column=1}, {row=4,column=3}, test_maps[5]) == false)
+print(connect_by_3({row=1,column=1}, {row=4,column=3}, test_maps[5]) == true)
+print(connect_by_3({row=1,column=1}, {row=2,column=4}, test_maps[1]) == false)
+print(connect_by_3({row=1,column=2}, {row=2,column=1}, test_maps[1]) == false)
 print("---------end-------------")
