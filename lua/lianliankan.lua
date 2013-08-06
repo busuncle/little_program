@@ -138,19 +138,51 @@ end
 
 
 print("---------begin-------------")
+print("test connect_by_1")
 print(connect_by_1({row=1,column=2}, {row=2,column=1}, test_maps[1]) == false) --false
 print(connect_by_1({row=1,column=3}, {row=2,column=3}, test_maps[1]) == true) --true
 print(connect_by_1({row=3,column=1}, {row=3,column=4}, test_maps[1]) == false) --false
 print(connect_by_1({row=1,column=2}, {row=2,column=1}, test_maps[2]) == false) --false
 print(connect_by_1({row=1,column=1}, {row=1,column=3}, test_maps[3]) == true) --true
+print(" ")
 
+print("test connect_by_2")
 print(connect_by_2({row=1,column=1}, {row=2,column=2}, test_maps[4]) == true) --true
 print(connect_by_2({row=1,column=3}, {row=4,column=2}, test_maps[4]) == true) --true
 print(connect_by_2({row=2,column=1}, {row=4,column=1}, test_maps[4]) == false) --false
+print(" ")
 
+print("test connect_by_3")
 print(connect_by_3({row=1,column=2}, {row=3,column=1}, test_maps[5]) == true)
 print(connect_by_3({row=2,column=1}, {row=4,column=1}, test_maps[5]) == true)
 print(connect_by_3({row=1,column=1}, {row=4,column=3}, test_maps[5]) == true)
 print(connect_by_3({row=1,column=1}, {row=2,column=4}, test_maps[1]) == false)
 print(connect_by_3({row=1,column=2}, {row=2,column=1}, test_maps[1]) == false)
+print(" ")
+
+print("test connect")
+print(connect({row=2,column=4}, {row=3,column=3}, test_maps[1]) == false)
+print(connect({row=3,column=2}, {row=4,column=1}, test_maps[1]) == false)
+print(connect({row=2,column=3}, {row=4,column=5}, test_maps[1]) == false)
+print(connect({row=2,column=4}, {row=2,column=5}, test_maps[1]) == true)
+print(connect({row=4,column=1}, {row=4,column=4}, test_maps[1]) == true)
+print(connect({row=4,column=1}, {row=2,column=1}, test_maps[1]) == true)
+
+print(connect({row=1,column=1}, {row=2,column=2}, test_maps[2]) == false)
+print(connect({row=1,column=4}, {row=2,column=3}, test_maps[2]) == false)
+
+print(connect({row=1,column=1}, {row=1,column=3}, test_maps[3]) == true)
+print(connect({row=2,column=1}, {row=1,column=4}, test_maps[3]) == false)
+
+print(connect({row=1,column=3}, {row=4,column=2}, test_maps[4]) == true)
+print(connect({row=2,column=1}, {row=4,column=1}, test_maps[4]) == true)
+print(connect({row=1,column=1}, {row=2,column=2}, test_maps[4]) == true)
+print(connect({row=3,column=1}, {row=3,column=2}, test_maps[4]) == true)
+
+print(connect({row=1,column=1}, {row=4,column=3}, test_maps[5]) == true)
+print(connect({row=1,column=2}, {row=3,column=1}, test_maps[5]) == true)
+print(connect({row=2,column=1}, {row=4,column=1}, test_maps[5]) == true)
+print(connect({row=2,column=2}, {row=4,column=2}, test_maps[5]) == true)
+print(" ")
+
 print("---------end-------------")
