@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<style>
+#mask{height:100%; width:100%; position:fixed; _position:absolute; top:0; z-index:1000;
+    opacity:0.8; filter: alpha(opacity=80); background-color:#000; }
+#sub_mask{position:absolute; z-index:10000;
+    opacity:0.3; filter: alpha(opacity=30); background-color:#0000FF;}
+</style>
+</head>
+
+<body>
+<div id="mask"></div>
+<div id="image_area">
+    <img src="images/tx3wm1.jpg" />
+</div>
+<div id="sub_mask"></div>
+<script type="text/javascript">
+    function getAbsMousePoint(ev) {
+        var x = y = 0;
+        var doc = document.documentElement;
+        var body = document.body;
+        if(!ev) ev=window.event;
+        if (window.pageYoffset) {//pageYoffset是Netscape特有
+            x = window.pageXOffset;
+            y = window.pageYOffset;
+        } else {
+            x = (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
+            y = (doc && doc.scrollTop  || body && body.scrollTop  || 0) - (doc && doc.clientTop  || body && body.clientTop  || 0);
+        }
+        x += ev.clientX;
+        y += ev.clientY;
+        // 根据当前浏览器的窗口大小，对x轴进行修正，1680是设计稿底图的宽
+        x += (1680 - document.documentElement.clientWidth) / 2;
+        return {x : x, y : y};
+    }
+
+    $(document).ready(function(){
+
+        var mouse_is_down = false;
+        var start_amp = null;
+
+        $("#mask").mousedown(function(e){
+            start_amp = getAbsMousePoint(e);
+            console.log("start absolute position: (" + start_amp.x + ", " + start_amp.y + ")");
+            mouse_is_down = true;
+            $("#sub_mask").css({"left": start_amp.x, "top": start_amp.y, "height": "1px", "width": "1px"});
+        });
+
+        $("#mask").mousemove(function(e){
+            if(mouse_is_down){
+                var amp = getAbsMousePoint(e);
+                $("#sub_mask").css({"width": (amp.x- start_amp.x) + "px", "height": (amp.y - start_amp.y) + "px"});
+            }
+        });
+
+        $("#mask").mouseup(function(e){
+            var p = getAbsMousePoint(e);
+            console.log("end absolute position: (" + p.x + ", " + p.y + ")");
+            mouse_is_down = false;
+            start_amp = null;
+        });
+
+        $("#mask").click(function(e){
+            mouse_is_down = false;
+            start_amp = null;
+        });
+    });
+
+</script>
+</body>
+</html>
