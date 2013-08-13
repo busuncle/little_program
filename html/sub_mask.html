@@ -6,7 +6,7 @@
 <style>
 #mask{height:100%; width:100%; position:fixed; _position:absolute; top:0; z-index:1000;
     opacity:0.8; filter: alpha(opacity=80); background-color:#000; }
-#sub_mask{position:absolute; z-index:10000;
+#sub_mask{position:absolute; z-index:10000;margin:auto;text-align:center;color:#FFFFFF;
     opacity:0.3; filter: alpha(opacity=30); background-color:#00BFFF;/*border: solid 2px;*/}
 </style>
 </head>
@@ -17,6 +17,8 @@
     <img src="images/tx3wm1.jpg" />
 </div>
 <div id="sub_mask"></div>
+<div id="msg" style="display:none;">
+</div>
 <script type="text/javascript">
     function getAbsMousePoint(ev) {
         var x = y = 0;
@@ -46,6 +48,7 @@
             start_amp = getAbsMousePoint(e);
             console.log("start absolute position: (" + start_amp.x + ", " + start_amp.y + ")");
             mouse_is_down = true;
+            $("#sub_mask").empty();
             $("#sub_mask").css({"left": start_amp.x, "top": start_amp.y, "height": "1px", "width": "1px"});
         });
 
@@ -59,8 +62,13 @@
         $("#mask").mouseup(function(e){
             var p = getAbsMousePoint(e);
             console.log("end absolute position: (" + p.x + ", " + p.y + ")");
+            $("#sub_mask").css("line-height", $("#sub_mask").height() + "px");
+            $("#sub_mask").text("loading");
             mouse_is_down = false;
             start_amp = null;
+            setTimeout(function(){
+                $("#sub_mask").text("finish");
+            }, 1000);
         });
 
     });
