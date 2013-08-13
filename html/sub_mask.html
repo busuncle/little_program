@@ -6,8 +6,10 @@
 <style>
 #mask{height:100%; width:100%; position:fixed; _position:absolute; top:0; z-index:1000;
     opacity:0.8; filter: alpha(opacity=80); background-color:#000; }
-#sub_mask{position:absolute; z-index:10000;margin:auto;text-align:center;color:#FFFFFF;
+#sub_mask{position:absolute; z-index:2000;margin:auto;text-align:center;color:#FFFFFF;
     opacity:0.3; filter: alpha(opacity=30); background-color:#00BFFF;/*border: solid 2px;*/}
+#msg{position: absolute; z-index:2000; font:16px 'Microsoft YaHei',Arial,宋体,Tahoma,Sans-Serif; 
+    background-color: #FFFFFF; position: absolute;}
 </style>
 </head>
 
@@ -17,8 +19,7 @@
     <img src="images/tx3wm1.jpg" />
 </div>
 <div id="sub_mask"></div>
-<div id="msg" style="display:none;">
-</div>
+<div id="msg" style="display:none;"></div>
 <script type="text/javascript">
     function getAbsMousePoint(ev) {
         var x = y = 0;
@@ -42,20 +43,21 @@
     $(document).ready(function(){
 
         var mouse_is_down = false;
-        var start_amp = null;
+        var start_p = null;
 
         $("#mask").mousedown(function(e){
-            start_amp = getAbsMousePoint(e);
-            console.log("start absolute position: (" + start_amp.x + ", " + start_amp.y + ")");
+            start_p = getAbsMousePoint(e);
+            console.log("start absolute position: (" + start_p.x + ", " + start_p.y + ")");
             mouse_is_down = true;
+            $("#msg").hide();
             $("#sub_mask").empty();
-            $("#sub_mask").css({"left": start_amp.x, "top": start_amp.y, "height": "1px", "width": "1px"});
+            $("#sub_mask").css({"left": start_p.x, "top": start_p.y, "height": "1px", "width": "1px"});
         });
 
         $("#mask").mousemove(function(e){
             if(mouse_is_down){
-                var amp = getAbsMousePoint(e);
-                $("#sub_mask").css({"width": (amp.x- start_amp.x) + "px", "height": (amp.y - start_amp.y) + "px"});
+                var p = getAbsMousePoint(e);
+                $("#sub_mask").css({"width": (p.x- start_p.x) + "px", "height": (p.y - start_p.y) + "px"});
             }
         });
 
@@ -65,9 +67,18 @@
             $("#sub_mask").css("line-height", $("#sub_mask").height() + "px");
             $("#sub_mask").text("loading");
             mouse_is_down = false;
-            start_amp = null;
             setTimeout(function(){
+                // can be changed into an ajax request
                 $("#sub_mask").text("finish");
+                $("#msg").empty();
+                $("#msg").append($("<p>some messages</p>"));
+                $("#msg").append($("<p>some messages</p>"));
+                $("#msg").append($("<p>some messages</p>"));
+                $("#msg").append($("<p>some messages</p>"));
+                $("#msg").append($("<p>some messages</p>"));
+                $("#msg").css({"left": start_p.x + $("#sub_mask").width(), "top": start_p.y});
+                $("#msg").show();
+                start_p = null;
             }, 1000);
         });
 
