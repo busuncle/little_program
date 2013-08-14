@@ -1,0 +1,60 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+</head>
+<body>
+<div id="not_real_i" style="border: solid 1px; padding: 5px; margin: 5px;">
+<h2>can not get real i</h2>
+<pre>
+for(var i=0; i<3; i++){
+    var b = $("button");
+    b.val("all is 3");
+    b.click(function(){
+        alert(i);
+    });
+    b.appendTo($("#not_real_i"));
+}
+</pre>
+</div>
+
+<div id="real_i" style="border: solid 1px; padding: 5px; margin: 5px;">
+<h2>can get real i</h2>
+<pre>
+for(var i=0; i<3; i++){
+    var b = $("button");
+    b.val(i);
+    (function(the_real_i){
+        // use a trick, anonymous functions wrapper
+        b.click(function(){
+            alert(the_real_i);
+        });
+    })(i);
+    b.appendTo($("#real_i"));
+}
+</pre>
+</div>
+
+<script>
+for(var i=0; i<3; i++){
+    var b = $("<input type='button' />");
+    b.val("all is 3");
+    b.click(function(){
+        alert(i);
+    });
+    b.appendTo($("#not_real_i"));
+}
+
+for(var i=0; i<3; i++){
+    var b = $("<input type='button' />");
+    b.val(i);
+    (function(the_real_i){
+        // use a trick, anonymous functions wrapper
+        b.click(function(){
+            alert(the_real_i);
+        });
+    })(i);
+    b.appendTo($("#real_i"));
+}
+</script>
+</body>
+</html>
