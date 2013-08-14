@@ -4,6 +4,7 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <style>
+* {margin: 0; padding: 0;}
 #mask{height:100%; width:100%; position:fixed; _position:absolute; top:0; z-index:1000;
     opacity:0.8; filter: alpha(opacity=80); background-color:#000; }
 #sub_mask{position:absolute; z-index:2000;margin:auto;text-align:center;color:#FFFFFF;
@@ -64,9 +65,12 @@
         $("#mask").mouseup(function(e){
             var p = getAbsMousePoint(e);
             console.log("end absolute position: (" + p.x + ", " + p.y + ")");
+            mouse_is_down = false;
+            if((p.x == start_p.x) || (p.y == start_p.y)){
+                return;
+            }
             $("#sub_mask").css("line-height", $("#sub_mask").height() + "px");
             $("#sub_mask").text("loading");
-            mouse_is_down = false;
             setTimeout(function(){
                 // can be changed into an ajax request
                 $("#sub_mask").text("finish");
