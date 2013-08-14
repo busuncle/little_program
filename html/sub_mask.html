@@ -52,7 +52,7 @@
             mouse_is_down = true;
             $("#msg").hide();
             $("#sub_mask").empty();
-            $("#sub_mask").css({"left": start_p.x, "top": start_p.y, "height": "1px", "width": "1px"});
+            $("#sub_mask").css({"left": start_p.x, "top": start_p.y, "height": 0, "width": 0});
         });
 
         $("#mask").mousemove(function(e){
