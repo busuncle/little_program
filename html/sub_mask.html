@@ -6,9 +6,9 @@
 * {margin: 0; padding: 0;}
 #mask{height:100%; width:100%; position:fixed; _position:absolute; top:0; z-index:1000;
     opacity:0.8; filter: alpha(opacity=80); background-color:#000; }
-#sub_mask{position:absolute; z-index:2000;margin:auto;text-align:center;color:#FFFFFF;
+#sub_mask{position:absolute; z-index:1000;margin:auto;text-align:center;color:#FFFFFF;
     opacity:0.3; filter: alpha(opacity=30); background-color:#00BFFF;}
-#msg{position: absolute; z-index:2000; font:16px 'Microsoft YaHei',Arial,宋体,Tahoma,Sans-Serif; 
+#msg{position: absolute; z-index:1000; font:16px 'Microsoft YaHei',Arial,宋体,Tahoma,Sans-Serif; 
     background-color: #FFFFFF; position: absolute;}
 </style>
 </head>
@@ -21,23 +21,9 @@
 <div id="sub_mask"></div>
 <div id="msg" style="display:none;"></div>
 <script type="text/javascript">
-    function getAbsMousePoint(ev) {
-        var x = y = 0;
-        var doc = document.documentElement;
-        var body = document.body;
-        if(!ev) ev=window.event;
-        if (window.pageYoffset) {//pageYoffset是Netscape特有
-            x = window.pageXOffset;
-            y = window.pageYOffset;
-        } else {
-            x = (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
-            y = (doc && doc.scrollTop  || body && body.scrollTop  || 0) - (doc && doc.clientTop  || body && body.clientTop  || 0);
-        }
-        x += ev.clientX;
-        y += ev.clientY;
-        // 根据当前浏览器的窗口大小，对x轴进行修正，1680是设计稿底图的宽
-        x += (1680 - document.documentElement.clientWidth) / 2;
-        return {x : x, y : y};
+
+    function getAbsMousePoint(ev){
+        return {x: ev.pageX, y: ev.pageY};
     }
 
     $(document).ready(function(){
@@ -54,11 +40,19 @@
             $("#sub_mask").css({"left": start_p.x, "top": start_p.y, "height": 0, "width": 0});
         });
 
-        $("#mask").mousemove(function(e){
+        function handle_mouse_down_move(e){
             if(mouse_is_down){
                 var p = getAbsMousePoint(e);
-                $("#sub_mask").css({"width": (p.x- start_p.x) + "px", "height": (p.y - start_p.y) + "px"});
+                $("#sub_mask").css({"width": p.x - start_p.x, "height": p.y - start_p.y});
             }
+        }
+
+        $("#mask").mousemove(function(e){
+            handle_mouse_down_move(e);
+        });
+
+        $("sub_mask").mousemove(function(e){
+            handle_mouse_down_move(e);
         });
 
         $("#mask").mouseup(function(e){
@@ -82,7 +76,7 @@
                 $("#msg").css({"left": start_p.x + $("#sub_mask").width(), "top": start_p.y});
                 $("#msg").show();
                 start_p = null;
-            }, 1000);
+            }, 500);
         });
 
     });
