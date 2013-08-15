@@ -7,7 +7,7 @@
 <h2>can not get real i</h2>
 <pre>
 for(var i=0; i<3; i++){
-    var b = $("button");
+    var b = $("&lt;input type='button' /&gt;");
     b.val("all is 3");
     b.click(function(){
         alert(i);
@@ -21,7 +21,7 @@ for(var i=0; i<3; i++){
 <h2>can get real i</h2>
 <pre>
 for(var i=0; i<3; i++){
-    var b = $("button");
+    var b = $("&lt;input type='button' /&gt;");
     b.val(i);
     (function(the_real_i){
         // use a trick, anonymous functions wrapper

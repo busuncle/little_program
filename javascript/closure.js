@@ -6,7 +6,8 @@ var click_it = (function(){
             return;
         }
         clicked = true;
-        alert("click this!");
+        //alert("click this!");
+        console.log("click this!");
     }
 }());
 
@@ -15,3 +16,5 @@ var click_it = (function(){
 click_it();
 click_it();
 click_it();
+// use phantomjs for non-gui environment testing
+phantom.exit();
