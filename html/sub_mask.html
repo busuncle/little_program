@@ -29,21 +29,21 @@
     $(document).ready(function(){
 
         var mouse_is_down = false;
-        var start_p = null;
+        var p0 = null;
 
         $("#mask").mousedown(function(e){
-            start_p = getAbsMousePoint(e);
-            console.log("start absolute position: (" + start_p.x + ", " + start_p.y + ")");
+            p0 = getAbsMousePoint(e);
+            console.log("start absolute position: (" + p0.x + ", " + p0.y + ")");
             mouse_is_down = true;
             $("#msg").hide();
             $("#sub_mask").empty();
-            $("#sub_mask").css({"left": start_p.x, "top": start_p.y, "height": 0, "width": 0});
+            $("#sub_mask").css({"left": p0.x, "top": p0.y, "height": 0, "width": 0});
         });
 
         function handle_mouse_down_move(e){
             if(mouse_is_down){
                 var p = getAbsMousePoint(e);
-                $("#sub_mask").css({"width": p.x - start_p.x, "height": p.y - start_p.y});
+                $("#sub_mask").css({"width": p.x - p0.x, "height": p.y - p0.y});
             }
         }
 
@@ -59,7 +59,7 @@
             var p = getAbsMousePoint(e);
             console.log("end absolute position: (" + p.x + ", " + p.y + ")");
             mouse_is_down = false;
-            if((p.x == start_p.x) || (p.y == start_p.y)){
+            if((p.x == p0.x) || (p.y == p0.y)){
                 return;
             }
             $("#sub_mask").css("line-height", $("#sub_mask").height() + "px");
@@ -73,9 +73,9 @@
                 $("#msg").append($("<p>some messages</p>"));
                 $("#msg").append($("<p>some messages</p>"));
                 $("#msg").append($("<p>some messages</p>"));
-                $("#msg").css({"left": start_p.x + $("#sub_mask").width(), "top": start_p.y});
+                $("#msg").css({"left": p0.x + $("#sub_mask").width(), "top": p0.y});
                 $("#msg").show();
-                start_p = null;
+                p0 = null;
             }, 500);
         });
 
