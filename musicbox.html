@@ -104,6 +104,33 @@ body {
     border-left: solid 12px #696969;
     left: 3px; top: 3px;
 }
+.volumn_icon {
+    position: absolute; 
+    /*border: solid 1px;*/
+    bottom: 8px; left: 160px; width: 22px; height: 22px;
+}
+.volumn_icon_rect {
+    position: absolute; 
+    -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px;
+    background-color: #696969;
+    border: solid 1px #696969;
+    width: 8px; height: 8px; left: 2px; top: 6px;
+}
+.volumn_icon_triangle {
+    position: absolute; 
+    -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;
+    border-top: solid 6px transparent;
+    border-bottom: solid 6px transparent;
+    border-right: solid 10px #696969;
+    width: 0; height: 8px; left: 9px; top: 1px;
+}
+.volumn_full_bar {
+    position: absolute; 
+    width: 120px; height: 12px;
+    -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;
+    background-color: #E8E8E8;
+    left: 200px; bottom: 13px;
+}
 </style>
 </head>
 
@@ -129,9 +156,13 @@ body {
             <div class="next_button_triangle pre_and_next_button_triangle"></div>
         </div>
 
-        <div class="volumn_icon"></div>
-        <div class="volumn_set_bar"></div>
-        <div class="volumn_background_bar"></div>
+        <div class="volumn_icon">
+            <div class="volumn_icon_rect"></div>
+            <div class="volumn_icon_triangle"></div>
+        </div>
+
+        <div class="volumn_current_bar"></div>
+        <div class="volumn_full_bar box_shadow"></div>
         <div class="play_mode"></div>
     </div>
 </div>
