@@ -287,6 +287,7 @@ footer h2 {
 <script type="text/javascript">
     $(document).ready(function(){
         var playing_music_id = null;
+        var player = $("#player");
         $(".music_list li a").click(function(){
             $(".music_list li.playing").removeClass("playing");
             $(this).parent().addClass("playing");
