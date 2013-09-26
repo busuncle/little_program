@@ -13,15 +13,15 @@ patterns = [
     r"(?P<name>Mac OS X) (?P<version>[\d_]+?)", 
     r"(?P<name>Windows)(?P<version>)",
     r"(?P<name>Android)(?P<version>)",
-    r"(?P<name>Linux)(?P<version>)",
     r"(?P<name>Mac OS X)(?P<version>)", 
+    r"(?P<name>Linux)(?P<version>)",
 ]
 
 res = {}
 others = []
 with open(sys.argv[1]) as fp:
     for line in fp:
-        os, version = "others", "version"
+        os, version = "others", "others"
         for pat in patterns:
             s = re.search(pat, line)
             if s is not None:
@@ -29,7 +29,7 @@ with open(sys.argv[1]) as fp:
                 if os == "Mac OS X":
                     version = version.split("_")[0]
                 if len(version) == 0:
-                    version = "version"
+                    version = "others"
                 break
 
         res[os, version] = res.get((os, version), 0) + 1
