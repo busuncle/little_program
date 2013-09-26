@@ -7,11 +7,14 @@ if len(sys.argv) < 2:
     exit(0)
 
 patterns = [
-    r"(?P<name>Windows) (?P<version>.+?)[;\)]",
+    r"(?P<name>Windows) (?P<version>.+?)[;\)\n]",
     r"(?P<name>Android)[/ ](?P<version>\d+\.\d+)",
     r"OS (?P<version>[\d_]+?) like (?P<name>Mac OS X)",
     r"(?P<name>Mac OS X) (?P<version>[\d_]+?)", 
+    r"(?P<name>Windows)(?P<version>)",
+    r"(?P<name>Android)(?P<version>)",
     r"(?P<name>Linux)(?P<version>)",
+    r"(?P<name>Mac OS X)(?P<version>)", 
 ]
 
 res = {}
@@ -25,6 +28,8 @@ with open(sys.argv[1]) as fp:
                 os, version = s.group("name"), s.group("version")
                 if os == "Mac OS X":
                     version = version.split("_")[0]
+                if len(version) == 0:
+                    version = "version"
                 break
 
         res[os, version] = res.get((os, version), 0) + 1
