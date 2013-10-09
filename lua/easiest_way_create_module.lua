@@ -1,4 +1,4 @@
--- first line, create this table
+-- first line, create this table, name it what you want, _M is good
 local this_is_a_module = {}
 
 this_is_a_module.sub_module_a = {}
@@ -12,6 +12,6 @@ return this_is_a_module
 
 --[[
 --  usage: 
---  local m = require "this_is_a_module"
+--  local m = require "easiest_way_create_module"
 --  print(m.function_a())
 --]]
