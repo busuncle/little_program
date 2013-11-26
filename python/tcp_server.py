@@ -9,14 +9,20 @@ s.listen(1)
 
 
 conn, address = s.accept()
+conn.setblocking(0)
 print "connect by %s:%s" % address
 try:
     while True:
-        data = conn.recv(1024**3)
-        if not data:
-            print "sleep 0.5s"
-            time.sleep(0.5)
-        print data
+        data = None
+        try:
+            data = conn.recv(1024**3)
+        except socket.error, ex:
+            print "no data, sleep 1s"
+            time.sleep(1)
+
+        if data:
+            print data
+
 except Exception, ex:
     print ex
     conn.close()
