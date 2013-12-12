@@ -1,5 +1,6 @@
 import struct
 import socket
+import sys
 
 
 
@@ -18,6 +19,7 @@ def inet_aton(a):
 
 
 if __name__ == "__main__":
-    addr = "123.125.48.34"
+    #addr = "123.125.48.34"
     #print struct.unpack(">L", socket.inet_pton(socket.AF_INET, addr))[0]
+    addr = sys.argv[1]
     print inet_aton(addr)
