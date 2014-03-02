@@ -1,4 +1,5 @@
 local producer, consumer
+local socket = require("socket")
 
 local function receieve()
     local status, value = coroutine.resume(producer)
@@ -22,7 +23,10 @@ consumer = coroutine.create(
     function ()
         while true do
             local x = receieve()
-            print("receieve " .. x)
+            if #x > 0 then
+                socket.sleep(1) -- simulate a calculating time
+                print("receieve " .. x)
+            end
         end
     end
 )
