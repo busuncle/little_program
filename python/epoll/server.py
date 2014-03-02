@@ -16,7 +16,7 @@ server_socket.setblocking(0)
 epoll = select.epoll()
 epoll.register(server_socket.fileno(), select.EPOLLIN)
 try:
-    connections, requests, respoinses = {}, {}, {}
+    connections, requests, responses = {}, {}, {}
     while True:
         events = epoll.poll(EPOLL_TIMEOUT)
         print "epolling"
@@ -27,20 +27,20 @@ try:
                 epoll.register(connection.fileno(), select.EPOLLIN)
                 connections[connection.fileno()] = connection
                 requests[connection.fileno()] = address
-                respoinses[connection.fileno()] = ""
+                responses[connection.fileno()] = ""
                 print "%s connected at %s" % (address, datetime.now())
 
             elif event & select.EPOLLIN:
                 buf = connections[fileno].recv(READ_MAX)
-                respoinses[fileno] += buf
+                responses[fileno] += buf
                 if len(buf) < READ_MAX:
-                    respoinses[fileno] = "hello, you say: " + respoinses[fileno]
+                    responses[fileno] = "hello, you say: " + responses[fileno]
                     epoll.modify(fileno, select.EPOLLOUT)
 
             elif event & select.EPOLLOUT:
-                sended = connections[fileno].send(respoinses[fileno])
-                respoinses[fileno] = respoinses[fileno][sended:]
-                if len(respoinses[fileno]) == 0:
+                sended = connections[fileno].send(responses[fileno])
+                responses[fileno] = responses[fileno][sended:]
+                if len(responses[fileno]) == 0:
                     #epoll.modify(fileno, 0)
                     #connections[fileno].shutdown(socket.SHUT_RDWR)
                     epoll.modify(fileno, select.EPOLLIN)
@@ -51,7 +51,7 @@ try:
                 connections[fileno].close()
                 del connections[fileno]
                 del requests[fileno]
-                del respoinses[fileno]
+                del responses[fileno]
 
 finally:
     epoll.unregister(server_socket.fileno())
