@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding:utf8 -*-
 import socket, select
 from datetime import datetime
 
@@ -15,8 +17,10 @@ sock.setblocking(0)
 kq = select.kqueue()
 kq.control([select.kevent(sock, select.KQ_FILTER_READ, select.KQ_EV_ADD)], 0)
 
+print "kq server start"
+
 try:
-    connections, requests, responses = {}, {}, {}
+    connections = {}
     while True:
         #print "kqueue main loop running"
         events = kq.control(None , 30, KQ_TIMEOUT)
@@ -31,7 +35,7 @@ try:
                 kq.control([
                     select.kevent(conn, select.KQ_FILTER_READ, select.KQ_EV_ADD),
                 ], 0)
-                print "%s connected at %s" % (address, datetime.now())
+                print "%s connected at %s, fd %s" % (address, datetime.now(), conn.fileno())
 
             elif event.filter == select.KQ_FILTER_READ:
                 buf = connections[event.ident].recv(READ_MAX)
