@@ -2,11 +2,17 @@
 # -*- coding:utf8 -*-
 import socket, select
 from datetime import datetime
+import time
 
 
 READ_MAX = 1024
 KQ_TIMEOUT = 5
 SOCKET_LISTEN = 10
+
+
+def long_time_func():
+    time.sleep(3)
+
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -46,6 +52,7 @@ try:
                     ], 0)
 
             elif event.filter == select.KQ_FILTER_WRITE:
+                long_time_func()
                 connections[event.ident].send("fuck you %s\n" % event.ident)
                 kq.control([
                     select.kevent(event.ident, select.KQ_FILTER_WRITE, select.KQ_EV_DELETE),
