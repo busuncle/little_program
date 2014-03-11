@@ -11,7 +11,7 @@ function Hero:to_string()
 end
 
 
-Renne = Hero:new()
+Renne = Hero:new{name="renne", hp=300, att=30}
 
 function Renne:new()
     local renne = {age=12}
