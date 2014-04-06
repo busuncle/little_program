@@ -2,7 +2,9 @@ local _M = {}
 
 _M.urlopen = function(url)
 	--[[ 
-		a very simple urlopen function used in ngx_lua, usage:
+		a very simple urlopen function used in ngx_lua.
+		add "resolver 8.8.8.8;" to http block in nginx.conf before using this.
+		usage:
 		local res, err = urllib.urlopen("http://www.baidu.com/s?wd=openresty")
 		if not res then
 			ngx.say(err)
@@ -11,13 +13,14 @@ _M.urlopen = function(url)
 		ngx.say(res)
 	--]]
 
+	local req, get_file, host, port, raw_req
 	local from, to, err = ngx.re.find(url, "^http://")
-	if not from then
-		return nil, "url must start with http"
+	if from then
+		raw_req = string.sub(url, to + 1, #url)
+	else 
+		raw_req = url
 	end
 
-	local raw_req = string.sub(url, to + 1, #url)
-	local req, get_file, host, port
 	from, to, err = ngx.re.find(raw_req, "/")
 	if from then
 		req = string.sub(raw_req, 1, from - 1)
