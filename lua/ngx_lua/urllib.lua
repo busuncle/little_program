@@ -1,0 +1,61 @@
+local _M = {}
+
+_M.urlopen = function(url)
+	--[[ 
+		a very simple urlopen function used in ngx_lua, usage:
+		local res, err = urllib.urlopen("http://www.baidu.com/s?wd=openresty")
+		if not res then
+			ngx.say(err)
+			return
+		end
+		ngx.say(res)
+	--]]
+
+	local from, to, err = ngx.re.find(url, "^http://")
+	if not from then
+		return nil, "url must start with http"
+	end
+
+	local raw_req = string.sub(url, to + 1, #url)
+	local req, get_file, host, port
+	from, to, err = ngx.re.find(raw_req, "/")
+	if from then
+		req = string.sub(raw_req, 1, from - 1)
+		get_file = string.sub(raw_req, to, #raw_req)
+	else
+		req = raw_req
+		get_file = "/"
+	end
+
+	from, to, err = ngx.re.find(req, ":")
+	if from then
+		host = string.sub(req, 1, from - 1)
+		port = string.sub(req, to + 1, #req)
+	else
+		host = req
+		port = 80
+	end
+
+	local sock = ngx.socket.tcp()
+	sock:settimeout(1000)
+	local ok, err = sock:connect(host, port)
+	if not ok then
+		return nil, "failed to connect: " .. err
+	end
+
+	sock:send(string.format("GET %s HTTP/1.0\r\nHost: %s\r\n\r\n", get_file, host))
+	local read_headers = sock:receiveuntil("\r\n\r\n")
+	headers, err = read_headers()
+	if not headers then
+		return nil, "failed to read response headers: " .. err
+	end
+
+	local body, err = sock:receive("*a")
+	if not body then
+		return nil, "failed to read response body: " .. err
+	end	
+
+	return body, nil
+end
+
+return _M

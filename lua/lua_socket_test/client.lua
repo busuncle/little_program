@@ -9,7 +9,7 @@ print("connect success")
 
 function receive(conn)
     conn:settimeout(0)
-    local recv, recv_status, partial = conn:receive(RECV_MAX)
+    local recv, status, partial = conn:receive(RECV_MAX)
     if status == "timeout" then
         coroutine.yield(conn)
     end
