@@ -29,5 +29,15 @@ int main(int argc, char ** argv)
 	printf("lua add function return value is %td \n", lua_tointeger(L, -1)); 
 	lua_pop(L, 1);
 
+	lua_getglobal(L, "two_return_values");
+	lua_pushinteger(L, 2);
+	lua_pcall(L, 1, 2, 0); // 1 param, 2 return values
+	int ret1, ret2;
+	ret1 = lua_tointeger(L, -1);
+	lua_pop(L, 1);
+	ret2 = lua_tointeger(L, -1);
+	lua_pop(L, 1);
+	printf("lua two_return_values, ret1 = %d, ret2 = %d \n", ret1, ret2);
+
 	lua_close(L);
 }

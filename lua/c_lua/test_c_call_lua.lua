@@ -15,3 +15,6 @@ function add(x, y)
 	return x + y
 end
 
+function two_return_values(x)
+	return x + 1, x - 1
+end
