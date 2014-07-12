@@ -61,4 +61,24 @@ _M.urlopen = function(url)
 	return body, nil
 end
 
+_M.urlopen2 = function(url, params)
+	--[[
+		a wrapper for urlopen
+		usage: local res, err = urllib.urlopen("http://www.baidu.com/s", {wd="openresty"})
+		return the same as urlopen
+	--]]
+	if #params > 0 then
+		local params_string = (function()
+			local arr = {}
+			table.foreach(params, function(k, v)
+				arr[#arr + 1] = string.format("%s=%s", k, v)
+			end)
+			return table.concat(arr, "&")
+		end)()
+		return _M.urlopen(string.format("%s?%s", url, params_string))
+	else
+		return _M.urlopen(url)
+	end
+end
+
 return _M
