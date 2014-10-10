@@ -1,0 +1,8 @@
+start:
+uwsgi uwsgi_conf.ini
+
+reload:
+kill -HUP `cat uwsgi.pid`
+
+stop:
+kill -9 `cat uwsgi.pid`
