@@ -34,6 +34,9 @@ int create_listener()
 		return -1;
 	}
 
+	int optval = 1;
+	setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
+
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(port);
@@ -115,6 +118,7 @@ void accept_conn(int kq, int conn_size)
 			printf("register client failed \n");
 			return;
 		}
+		printf("accept client sock: %d\n", client);
 	}
 }
 
@@ -129,7 +133,7 @@ void receive(int sock, int avail_bytes)
 		return;
 	}
 
-	printf("recv data: %s", buf);
+	printf("recv data from sock %d: %s", sock, buf);
 }
 
 
