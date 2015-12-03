@@ -2,11 +2,15 @@ import pymongo
 
 conn = pymongo.MongoClient("localhost", 27017)
 
-cur = conn.test.user.find()
-print "total count:"
-print cur.collection.count()
+print "collection names:"
+print conn.test.collection_names(include_system_collections=False)
 print
 
+print "total count:"
+print conn.test.user.count()
+print
+
+cur = conn.test.user.find()
 print "iter collection:"
 for v in cur:
     print v
@@ -24,8 +28,11 @@ for v in cur[1:3]:
 print
 
 
-"""
-output:
+""" output
+
+collection names:
+[u'user', u'team']
+
 total count:
 5
 
