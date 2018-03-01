@@ -9,7 +9,6 @@ def inet_ntoa(n):
     like this: ip = socket.inet_ntoa(struct.pack(">L", n))
     make it easy
     """
-    assert 0 <= n < 2**32 - 1
     res = []
     mask = 2**8 - 1
     while len(res) < 4:
